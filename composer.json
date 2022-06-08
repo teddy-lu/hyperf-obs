@@ -1,0 +1,29 @@
+{
+    "name": "teddy/hyperf-obs",
+    "description": "OBS PHP SDK suit for PHP8.1",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Teddy\\HyperfObs\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "teddyLuu",
+            "email": "teddy@ifreegroup.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7.4.0",
+        "guzzlehttp/guzzle" : "6.5.* || 7.4.*",
+        "monolog/monolog" : "1.23.0 || 3.0.0",
+        "ext-simplexml": "*",
+        "ext-iconv": "*",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "psr/log" : "~1.0 || 3.0.0",
+        "phpunit/phpunit": "*"
+    }
+}
