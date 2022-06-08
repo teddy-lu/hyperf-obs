@@ -17,7 +17,7 @@
     "require": {
         "php" : ">=7.4.0",
         "guzzlehttp/guzzle" : "6.5.* || 7.4.*",
-        "monolog/monolog" : "1.23.0 || 2.0.0",
+        "monolog/monolog" : "^1.23 || ^2.0",
         "ext-simplexml": "*",
         "ext-iconv": "*",
         "ext-curl": "*"
