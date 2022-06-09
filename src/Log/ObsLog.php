@@ -28,7 +28,7 @@ class ObsLog extends Logger
 
     protected $log_path = './';
     protected $log_name = null;
-    protected $log_level = Level::Debug;
+    protected $log_level = Logger::DEBUG;
     protected $log_maxFiles = 0;
 
     private $formatter = null;
