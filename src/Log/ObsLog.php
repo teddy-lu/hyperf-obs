@@ -72,7 +72,7 @@ class ObsLog extends Logger
     private function cheakDir()
     {
         if (!is_dir($this->log_path)) {
-            mkdir($this->log_path, 0755, true);
+            mkdir($this->log_path, 0777, true);
         }
     }
 
