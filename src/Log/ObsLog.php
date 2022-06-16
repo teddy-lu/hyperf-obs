@@ -69,11 +69,28 @@ class ObsLog extends Logger
         $this->log_level = $arr['Level'];
     }
 
+    private function getDirFromStream(string $stream): ?string
+    {
+        $pos = strpos($stream, '://');
+        if ($pos === false) {
+            return dirname($stream);
+        }
+
+        if ('file://' === substr($stream, 0, 7)) {
+            return dirname(substr($stream, 7));
+        }
+
+        return null;
+    }
+
     private function cheakDir()
     {
-        if (!is_dir($this->log_path)) {
-            var_dump($this->log_path);
-            mkdir($this->log_path, 0777, true);
+        $this->log_path = $this->getDirFromStream($this->log_path);
+        if (null !== $this->log_path && !is_dir($this->log_path)) {
+            $status = mkdir($this->log_path, 0777, true);
+            if (false === $status && !is_dir($this->log_path)) {
+                throw new \ObsValidationException(sprintf('There is no existing directory at "%s" and it could not be created: ', $this->log_path));
+            }
         }
     }
 
