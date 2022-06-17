@@ -6,4 +6,6 @@
  * Date 2022/6/16 下午5:45
  */
 
-class ObsValidationException extends \RuntimeException{}
+namespace Teddy\HyperfObs;
+
+class ObsValidationException extends \RuntimeException {}

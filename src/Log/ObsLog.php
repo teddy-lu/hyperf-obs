@@ -21,6 +21,8 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Level;
 use Monolog\Logger;
+use Monolog\Utils;
+use Teddy\HyperfObs\ObsValidationException;
 
 class ObsLog extends Logger
 {
@@ -34,6 +36,9 @@ class ObsLog extends Logger
     private $formatter = null;
     private $handler = null;
     private $filepath = '';
+
+    /** @var ?int */
+    protected $filePermission = 0777;
 
     public static function initLog($logConfig = [])
     {
@@ -89,13 +94,20 @@ class ObsLog extends Logger
         if (null !== $this->log_path && !is_dir($this->log_path)) {
             $status = mkdir($this->log_path, 0777, true);
             if (false === $status && !is_dir($this->log_path)) {
-                throw new \ObsValidationException(sprintf('There is no existing directory at "%s" and it could not be created: ', $this->log_path));
+                throw new ObsValidationException(sprintf('There is no existing directory at "%s" and it could not be created: ', $this->log_path));
             }
         }
     }
 
     private function setFilePath()
     {
+        $stream = fopen($this->log_path, 'a');
+        if ($this->filePermission !== null) {
+            @chmod($this->log_path, $this->filePermission);
+        }
+        if (!is_resource($stream)) {
+            throw new ObsValidationException(sprintf('The stream or file "%s" could not be opened in append mode: ', $this->log_path));
+        }
         $this->filepath = $this->log_path . '/' . $this->log_name;
     }
 
